@@ -1,7 +1,7 @@
-package com.utry.dbs.controller;
+package com.chenglong.dbs.controller;
 
-import com.utry.dbs.models.ScoreBean;
-import com.utry.dbs.service.ScoreService;
+import com.chenglong.dbs.models.ScoreBean;
+import com.chenglong.dbs.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

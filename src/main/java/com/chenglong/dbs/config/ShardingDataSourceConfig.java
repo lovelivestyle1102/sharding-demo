@@ -1,6 +1,6 @@
-package com.utry.dbs.config;
+package com.chenglong.dbs.config;
 
-import com.utry.dbs.strategy.ScoreStrategy;
+import com.chenglong.dbs.strategy.ScoreStrategy;
 import org.apache.shardingsphere.api.config.sharding.ShardingRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.TableRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.strategy.StandardShardingStrategyConfiguration;

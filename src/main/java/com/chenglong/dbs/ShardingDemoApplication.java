@@ -1,4 +1,4 @@
-package com.utry.dbs;
+package com.chenglong.dbs;
 
 import org.apache.shardingsphere.shardingjdbc.spring.boot.SpringBootConfiguration;
 import org.springframework.boot.SpringApplication;

@@ -1,6 +1,6 @@
-package com.utry.dbs.service;
+package com.chenglong.dbs.service;
 
-import com.utry.dbs.models.ScoreBean;
+import com.chenglong.dbs.models.ScoreBean;
 
 public interface ScoreService {
     void add(ScoreBean scoreBean);

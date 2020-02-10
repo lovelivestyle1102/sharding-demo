@@ -1,4 +1,4 @@
-package com.utry.dbs.strategy;
+package com.chenglong.dbs.strategy;
 
 import org.apache.shardingsphere.api.sharding.standard.PreciseShardingAlgorithm;
 import org.apache.shardingsphere.api.sharding.standard.PreciseShardingValue;

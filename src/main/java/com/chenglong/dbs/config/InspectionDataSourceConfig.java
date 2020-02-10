@@ -1,4 +1,4 @@
-package com.utry.dbs.config;
+package com.chenglong.dbs.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import lombok.Data;

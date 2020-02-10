@@ -1,8 +1,8 @@
-package com.utry.dbs.service.impl;
+package com.chenglong.dbs.service.impl;
 
-import com.utry.dbs.dao.ScoreDao;
-import com.utry.dbs.models.ScoreBean;
-import com.utry.dbs.service.ScoreService;
+import com.chenglong.dbs.dao.ScoreDao;
+import com.chenglong.dbs.models.ScoreBean;
+import com.chenglong.dbs.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

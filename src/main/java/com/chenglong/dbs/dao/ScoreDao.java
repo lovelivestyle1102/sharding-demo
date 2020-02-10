@@ -1,11 +1,10 @@
-package com.utry.dbs.dao;
+package com.chenglong.dbs.dao;
 
-import com.utry.dbs.models.ScoreBean;
+import com.chenglong.dbs.models.ScoreBean;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 

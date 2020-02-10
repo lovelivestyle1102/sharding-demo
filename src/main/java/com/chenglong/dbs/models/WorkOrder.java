@@ -1,4 +1,4 @@
-package com.utry.dbs.models;
+package com.chenglong.dbs.models;
 
 import java.io.Serializable;
 import java.util.Date;

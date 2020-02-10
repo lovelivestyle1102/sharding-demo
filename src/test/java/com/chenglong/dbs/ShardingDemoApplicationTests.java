@@ -1,4 +1,4 @@
-package com.utry.dbs;
+package com.chenglong.dbs;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
