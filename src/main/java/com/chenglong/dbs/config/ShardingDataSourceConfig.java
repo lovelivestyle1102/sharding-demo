@@ -46,8 +46,9 @@ public class ShardingDataSourceConfig {
     @Bean
     DataSource getShardingDataSource() throws SQLException {
         ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
-        shardingRuleConfig.getTableRuleConfigs().add(getOrderTableRuleConfiguration());
-        return ShardingDataSourceFactory.createDataSource(createDataSourceMap(), shardingRuleConfig, new Properties());
+        Map<String,DataSource> sourceMap = createDataSourceMap();
+        shardingRuleConfig.getTableRuleConfigs().add(getScoreTableRuleConfiguration(sourceMap.get("inspection")));
+        return ShardingDataSourceFactory.createDataSource(sourceMap, shardingRuleConfig, new Properties());
     }
 
     /**
@@ -69,14 +70,18 @@ public class ShardingDataSourceConfig {
      *
      * @return
      */
-    TableRuleConfiguration getOrderTableRuleConfiguration() {
-        TableRuleConfiguration result = new TableRuleConfiguration("t_score", generateActualDataNodes("t_score",shardingProperties));
-        if(DAY_SEGMENTATION_STRATEGY.equals(shardingProperties.getStrategyValue())&&MONTH_SEGMENTATION_STRATEGY.equals(shardingProperties.getStrategyValue())&&YEAR_SEGMENTATION_STRATEGY.equals(shardingProperties.getStrategyValue())){
+    TableRuleConfiguration getScoreTableRuleConfiguration(DataSource dataSource) {
+        TableRuleConfiguration tableRuleConfiguration = new TableRuleConfiguration("t_score", generateActualDataNodes("t_score",shardingProperties));
+
+        if(!DAY_SEGMENTATION_STRATEGY.equals(shardingProperties.getStrategyValue())&&!MONTH_SEGMENTATION_STRATEGY.equals(shardingProperties.getStrategyValue())&&!YEAR_SEGMENTATION_STRATEGY.equals(shardingProperties.getStrategyValue())){
             throw new RuntimeException("只支持按年月日分表！");
         }
+
         int strategyLength = DAY_SEGMENTATION_STRATEGY.equals(shardingProperties.getStrategyValue())?8:MONTH_SEGMENTATION_STRATEGY.equals(shardingProperties.getStrategyValue())?6:4;
-        result.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("score_aid_id",new ScoreStrategy(strategyLength)));
-        return result;
+
+        tableRuleConfiguration.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("score_aid_id",new ScoreStrategy(strategyLength,dataSource)));
+
+        return tableRuleConfiguration;
     }
 
     /**
@@ -89,10 +94,6 @@ public class ShardingDataSourceConfig {
      * @return
      */
     private String generateActualDataNodes(String prefix,ShardingProperties shardingProperties) {
-        StringBuilder actualDataNodes = new StringBuilder();
-
-        actualDataNodes.append("inspection.").append("${[");
-
         if(StringUtils.isEmpty(shardingProperties.getBeginDate())){
             throw new RuntimeException("请配置分片开始时间");
         }
@@ -100,6 +101,10 @@ public class ShardingDataSourceConfig {
         if(StringUtils.isEmpty(shardingProperties.getEndDate())){
             throw new RuntimeException("请配置分片结束时间");
         }
+
+        StringBuilder actualDataNodes = new StringBuilder();
+
+        actualDataNodes.append("inspection.").append("${[");
 
         LocalDate beginDate = LocalDate.parse(shardingProperties.getBeginDate(), DateTimeFormatter.ofPattern("yyyyMMdd"));
 
